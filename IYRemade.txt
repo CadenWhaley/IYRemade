@@ -7,7 +7,7 @@ pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
 	local notLoaded = Instance.new("Message",workspace)
-	notLoaded.Text = 'Infinite Yield Remake is waiting for the game to load'
+	notLoaded.Text = 'Infinite Yield PLV is waiting for the game to load'
 	game.Loaded:Wait()
 	notLoaded:Destroy()
 end
@@ -15,7 +15,6 @@ end
 ver = '2.0.0'
 
 Players = game:GetService("Players")
-
 Holder = Instance.new("Frame")
 Title = Instance.new("TextLabel")
 Dark = Instance.new("Frame")
@@ -217,7 +216,7 @@ Title.BorderSizePixel = 0
 Title.Size = UDim2.new(0, 250, 0, 20)
 Title.Font = Enum.Font.SourceSans
 Title.TextSize = 18
-Title.Text = "Infinite Yield FE v"..ver
+Title.Text = "Infinite Yield FE PLV v"..ver
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.ZIndex = 10
 table.insert(shade1,Title)
@@ -4679,7 +4678,21 @@ CMDs[#CMDs + 1] = {NAME = 'reloadplugin [name]', DESC = 'Reloads a plugin'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'breakloops / break (cmd loops)', DESC = 'Stops any cmd loops (;100^1^cmd)'}
 CMDs[#CMDs + 1] = {NAME = 'removecmd / deletecmd', DESC = 'Removes a command until the admin is reloaded'}
-CMDs[#CMDs + 1] = {NAME = 'loadstring / ls', DESC = 'Executes a loadstring'}
+CMDs[#CMDs + 1] = {NAME = 'classicchat', DESC = 'Brings back the old chat!'}
+CMDs[#CMDs + 1] = {NAME = 'print', DESC = 'Just a useless Command I wanted to add.'}
+CMDs[#CMDs + 1] = {NAME = 'bytechat', DESC = 'Chat through byte translation, very good for bypassing the filter.'}
+CMDs[#CMDs + 1] = {NAME = 'fakechat', DESC = 'Chat an string as the specified player.'}
+CMDs[#CMDs + 1] = {NAME = 'fehub1', DESC = 'Opens the Hub. Original by Zwolf, Alex, Mat and JamesX.'}
+CMDs[#CMDs + 1] = {NAME = 'translator', DESC = 'Translates any language in chat.'}
+CMDs[#CMDs + 1] = {NAME = 'chatemoji', DESC = 'Chat Emojis why not.'}
+CMDs[#CMDs + 1] = {NAME = 'furry', DESC = 'PAID EXECUTORS ONLY'}
+CMDs[#CMDs + 1] = {NAME = 'flyhat', DESC = 'makes your hats fly around you'}
+CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
+CMDs[#CMDs + 1] = {NAME = 'developer', DESC = '???'}
+CMDs[#CMDs + 1] = {NAME = 'rtm', DESC = 'Removes any tool Mesh (MUST BE IN YOUR ARM)'}
+CMDs[#CMDs + 1] = {NAME = 'filterware', DESC = 'Just script hub including many FE scripts.'}
+CMDs[#CMDs + 1] = {NAME = 'nameprotect', DESC = 'Hides your name in any game!'}
+CMDs[#CMDs + 1] = {NAME = 'iychat', DESC = 'Example. ;iychat Tagname True or false if you dont want RBG!'}
 wait()
 
 for i = 1, #CMDs do
@@ -4977,11 +4990,11 @@ end
 function addcmd(name,alias,func,plgn)
 	cmds[#cmds+1]=
 		{
-		NAME=name;
-		ALIAS=alias or {};
-		FUNC=func;
-		PLUGIN=plgn;
-	}
+			NAME=name;
+			ALIAS=alias or {};
+			FUNC=func;
+			PLUGIN=plgn;
+		}
 end
 
 function removecmd(cmd)
@@ -5005,10 +5018,10 @@ end
 function addbind(cmd,key,iskeyup)
 	binds[#binds+1]=
 		{
-		COMMAND=cmd;
-		KEY=key;
-		ISKEYUP=iskeyup;
-	}
+			COMMAND=cmd;
+			KEY=key;
+			ISKEYUP=iskeyup;
+		}
 end
 
 function addcmdtext(text,name,desc)
@@ -7920,13 +7933,6 @@ addcmd('fov',{},function(args, speaker)
 		workspace.CurrentCamera.FieldOfView = fov
 	end
 end)
-
-addcmd('loadstring',{'ls'},function(args, speaker)
-local s,r = pcall(function()
-local code = typeof(args) == "table" and table.concat(args," ") or tostring(args)
-	end
-end)
-
 
 local preMaxZoom = Players.LocalPlayer.CameraMaxZoomDistance
 local preMinZoom = Players.LocalPlayer.CameraMinZoomDistance
@@ -11104,6 +11110,578 @@ addcmd('removecmd',{'deletecmd'},function(args, speaker)
 	removecmd(args[1])
 end)
 
+addcmd('classicchat',{},function(args, speaker)
+	local PlayerGui = speaker:WaitForChild("PlayerGui")
+	PlayerGui:WaitForChild("Chat")
+	if PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible ~= true then
+		PlayerGui.Chat.Frame.ChatBarParentFrame.Position = PlayerGui.Chat.Frame.ChatChannelParentFrame.Position + UDim2.new(UDim.new(0,0),PlayerGui.Chat.Frame.ChatChannelParentFrame.Size.Y)
+		PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible = true
+		PlayerGui.Chat.Frame.ChatChannelParentFrame.Size = UDim2.new(1,0,1,-46)
+	end
+end)
+
+addcmd('print',{},function(args, speaker)
+	local printtext = args[1]
+	print(printtext)
+end)
+
+addcmd('bytechat',{},function(args, speaker)
+	local realmessage = table.concat(args," ")
+	local ns = ""
+	for i = 1,string.len(realmessage) do
+		ns = ns .. string.format("\\%s",string.byte(string.sub(realmessage,i,i)))
+	end
+	pcall(function() game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"].SayMessageRequest:FireServer(ns,"All") end)
+end)
+
+addcmd('fakechat',{},function(args, speaker)
+	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(utf8.char(11774):rep(27+#game.Players.LocalPlayer.Name).."["..args[1].."]"..": "..args[2],"All")
+end)
+
+addcmd('fehub1',{},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/ZZhf8My8"))()
+end)
+
+addcmd('translator',{},function(args, speaker)
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/xxaim/ignore/master/translator.lua'))() 
+end)
+
+addcmd('chatemoji',{},function(args, speaker)
+	local insertKey = Enum.KeyCode.RightShift
+
+	if not game:IsLoaded() then
+		game.Loaded:Wait()
+	end
+
+	local plrs = game:GetService("Players")
+	local PlayerGui = plrs.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local EmojiList = Instance.new("ScrollingFrame")
+	local EmojiButton = Instance.new("TextButton")
+
+	EmojiList.Name = "EmojiList"
+	EmojiList.Parent = PlayerGui:WaitForChild("Chat").Frame.ChatBarParentFrame.Frame
+	EmojiList.Active = true
+	EmojiList.BackgroundColor3 = Color3.new(0, 0, 0)
+	EmojiList.BackgroundTransparency = 0.6
+	EmojiList.BorderSizePixel = 0
+	EmojiList.Position = UDim2.new(0, 0, 0, 42)
+	EmojiList.Size = UDim2.new(1, 0, 1, 200)
+	EmojiList.ScrollBarThickness = 4
+	EmojiList.VerticalScrollBarInset = "Always"
+	EmojiList.Visible = false
+
+	EmojiButton.Name = "EmojiButton"
+	EmojiButton.BackgroundColor3 = Color3.new(0.4, 0.4, 0.4)
+	EmojiButton.BackgroundTransparency = 1
+	EmojiButton.BorderSizePixel = 0
+	EmojiButton.Size = UDim2.new(1, 0, 0, 20)
+	EmojiButton.Font = Enum.Font.SourceSansBold
+	EmojiButton.TextSize = 18
+	EmojiButton.TextColor3 = Color3.new(1, 1, 1)
+	EmojiButton.TextXAlignment = Enum.TextXAlignment.Left
+
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = "Edge's Emoji Chat Loaded. Fetching Emojis...";
+		Color = Color3.new(255,255,255);
+		Font = Enum.Font.SourceSans;
+		FontSize = Enum.FontSize.Size24;
+	})
+
+	local selected = 0
+	local chatbox
+	local emojil = game:GetService("HttpService"):JSONDecode(game:HttpGet('https://raw.githubusercontent.com/emojione/emojione/master/emoji_strategy.json', true))
+	local emotes = {}
+	local emojis = {}
+	local unicode = loadstring(game:HttpGet(('https://pastebin.com/raw/ESvakmEn'),true))()
+	for i,w in next,emojil do
+		local str = ""
+		for v in w.unicode_output:gmatch("[%a%d]+") do
+			str = str..unicode(v)
+		end
+		emojis[w.shortname:sub(2,-2)] = {str,w.keywords}
+		emotes[#emotes + 1] = w.shortname:sub(2,-2)
+	end
+
+	local emotes,names = emojis,emotes
+	shared.emotes = emotes
+	shared.names = names
+
+	function compare(t,v)
+		for _,i in next,t do
+			if i:sub(1,#v):lower() == v:lower() then
+				return true
+			end
+		end
+	end
+
+	function insertEmoji(chat,emoji,emojiText)
+		if chat and emoji and emojiText then
+			local finalEmojiText = ':'..emojiText..':'
+			local prefix = string.find(chatbox.Text,":")
+			local swapChat = string.gsub(chat,chatbox.Text:sub(prefix),finalEmojiText)
+			local swapEmoji = string.gsub(swapChat,':[%w%p]+:',emoji)
+			return(swapEmoji)
+		end
+	end
+
+	local e = {}
+	local n = {}
+	function update(name)
+		local t = name
+		e = {}
+		n = {}
+		for i,v in next,emotes do
+			if i:sub(1,#t):lower() == t:lower() or compare(v[2],t) then
+				n[#n+1] = i
+			end
+		end
+		table.sort(n,function(a,b)
+			return a <= b
+		end)
+		for i,v in next,n do
+			e[i] = emotes[v][1]
+		end
+		EmojiList:ClearAllChildren()
+		local namenum = 1
+		local prefix = string.find(chatbox.Text,":")
+		if #e ~= 0 then
+			EmojiList.Visible = true
+			local YSize = 25
+			local num = 1
+			for i,v in next,e do
+				if i <= 100 then
+					local Position = ((num * YSize) - YSize)
+					local b = EmojiButton:Clone()
+					local emoj = v
+					local emojName = n[i]
+					b.Name = tostring(namenum)
+					b.Parent = EmojiList
+					b.Text = emoj..' :'..emojName..':'
+					b.Position = UDim2.new(0,8,0,Position + 5)
+					EmojiList.CanvasSize = UDim2.new(0,0,0,Position + 30)
+					if namenum <= 9 then
+						EmojiList.Size = UDim2.new(1,0,1,EmojiList.CanvasSize.Y.Offset-40)
+					else
+						EmojiList.Size = UDim2.new(1,0,1,200)
+					end
+					namenum = namenum+1
+					num = num+1
+					b.MouseButton1Click:connect(function()
+						chatbox.Text = insertEmoji(chatbox.Text,emoj,emojName)
+						chatbox:CaptureFocus()
+						EmojiList.Visible = false
+					end)
+				end
+			end
+		else
+			EmojiList.Visible = false
+		end
+		selected = 0
+	end
+
+	local chatboxFunc = nil
+	if pcall(function() chatbox = PlayerGui:WaitForChild("Chat").Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end) then
+		local function Index()
+			chatbox.Text = string.gsub(chatbox.Text, "\t", "")
+			local prefix = string.find(chatbox.Text,":")
+			if prefix ~= nil then
+				local search = chatbox.Text:sub(prefix+1)
+				if string.find(search," ") then
+					EmojiList.Visible = false
+					return
+				end
+				local endsearch = string.find(search,":")
+				if endsearch ~= nil then
+					update(search:sub(1,endsearch-1))
+					EmojiList.Visible = false
+					chatbox.Text = insertEmoji(chatbox.Text,e[1],n[1])
+					return
+				end
+				update(search)
+			else
+				EmojiList.Visible = false
+			end
+		end
+		chatboxFunc = chatbox:GetPropertyChangedSignal("Text"):Connect(Index)
+		PlayerGui.Chat.Frame.ChatBarParentFrame.ChildAdded:Connect(function(newbar)
+			wait()
+			if newbar:FindFirstChild('BoxFrame') then
+				chatbox = PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar
+				if chatboxFunc then chatboxFunc:Disconnect() end
+				chatboxFunc = chatbox:GetPropertyChangedSignal("Text"):Connect(Index)
+			end
+		end)
+	else
+		print('Custom chat detected.')
+	end
+
+	local function updateView()
+		local index = selected-1
+		local topPos = math.ceil(EmojiList.CanvasPosition.Y/25)
+		local bottomPos = math.floor((EmojiList.CanvasPosition.Y + EmojiList.AbsoluteSize.Y)/25)-1
+		local canvasPos
+		if index < topPos then
+			canvasPos = index*25
+		elseif index > bottomPos then
+			canvasPos = 25*(index+1)-EmojiList.AbsoluteSize.Y+5
+		end
+		if canvasPos then
+			EmojiList.CanvasPosition = Vector2.new(0,canvasPos)
+		end
+	end
+
+	game:GetService("UserInputService").InputBegan:connect(function(input)
+		if EmojiList.Visible then
+			if input.KeyCode == Enum.KeyCode.Down then
+				local function scrollDown()
+					local deselect = EmojiList:FindFirstChild(selected)
+					if deselect ~= nil then
+						deselect.BackgroundTransparency = 1
+					end
+					selected = selected+1
+					local item = EmojiList:FindFirstChild(selected)
+					if item ~= nil then
+						item.BackgroundTransparency = 0.6
+					else
+						selected = selected-1
+						local item = EmojiList:FindFirstChild(selected)
+						if item ~= nil then
+							item.BackgroundTransparency = 0.6
+						end
+					end
+					updateView()
+				end
+
+				local releaseEvent,stopped
+				releaseEvent = game:GetService("UserInputService").InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Down then
+						releaseEvent:Disconnect()
+						stopped = true
+					end
+				end)
+				scrollDown()
+				wait(0.5)
+				while not stopped do
+					scrollDown()
+					wait()
+				end
+			elseif input.KeyCode == Enum.KeyCode.Up then
+				local function scrollUp()
+					local deselect = EmojiList:FindFirstChild(selected)
+					if deselect ~= nil then
+						deselect.BackgroundTransparency = 1
+					end
+					selected = selected-1
+					local item = EmojiList:FindFirstChild(selected)
+					if item ~= nil then
+						item.BackgroundTransparency = 0.6
+					else
+						selected = selected+1
+						local item = EmojiList:FindFirstChild(selected)
+						if item ~= nil then
+							item.BackgroundTransparency = 0.6
+						end
+					end
+					updateView()
+				end
+
+				local releaseEvent,stopped
+				releaseEvent = game:GetService("UserInputService").InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Up then
+						releaseEvent:Disconnect()
+						stopped = true
+					end
+				end)
+				scrollUp()
+				wait(0.5)
+				while not stopped do
+					scrollUp()
+					wait()
+				end
+			elseif input.KeyCode == insertKey then
+				if selected ~= 0 then
+					local item = EmojiList:FindFirstChild(selected)
+					local prefix = string.find(chatbox.Text,":")
+					if item ~= nil and prefix ~= nil then
+						chatbox.Text = insertEmoji(chatbox.Text,e[selected],n[selected])
+						chatbox:CaptureFocus()
+						EmojiList.Visible = false
+					end
+				end
+			end
+		end
+	end)
+end)
+
+addcmd('furry',{},function(args, speaker)
+	print("Your weird crap as loadded (Furry Command)")
+	-------------------------------------------------------------------------------------------------------------
+
+	local owos = {
+		"UwU",
+		"uwu",
+		"^w^",
+		">w<",
+		"(´•ω•`)"
+	}
+
+	local hyper_links = {}
+	local players = game:GetService("Players")
+
+	local function replace_link(string)
+		table.insert(hyper_links, string)
+		return "owo" .. #hyper_links
+	end
+
+	local function trim(string)
+		return string.match(string, "^%s*(.-)%s*$")
+	end
+
+	local function owo_convert(speech)
+		local selected_owo = owos[math.random(1, #owos)]
+		local modifier = math.random(1, 5)
+		local output = ""
+
+		output = speech:gsub("|c.-|r", replace_link)
+
+		output = output:gsub("[LR]", "W")
+		output = output:gsub("[lr]", "w")
+
+		if modifier < 5 then
+			output = output:gsub("U([^VW])", "UW%1")
+			output = output:gsub("u([^vw])", "uw%1")
+		end
+
+		output = output:gsub("ith " , "if ")
+		output = output:gsub("([fps])([aeio]%w+)", "%1w%2") or output
+		output = output:gsub("n([aeiou]%w)", "ny%1") or output
+		output = output:gsub(" th", " d") or output
+
+		output = string.format(" %s ", output)
+
+		for character in string.gmatch(output, "%a+") do
+			if math.random(1, 5) == 5 then
+				local first_character = character:sub(1, 1)
+				output = output:gsub(string.format(" %s ", character), string.format(" %s-%s ", first_character, character))
+			end
+		end
+
+		output = trim(output)
+		output = modifier == 5 and output .. " " .. selected_owo or output:gsub("!$", " " .. selected_owo)
+
+		return output
+	end
+
+	local chat_remotes = {
+		"SayMessageRequest",
+		"PlayerChatted",
+		"Chatted"
+	}
+
+	local meta_table = getrawmetatable(game)
+	local namecall = meta_table.__namecall
+	setreadonly(meta_table, false)
+
+	meta_table.__namecall = newcclosure(function(self, ...)
+		local method = getnamecallmethod()
+		local args = {...}
+
+		if method == "FireServer" then
+			for index, name in pairs(chat_remotes) do
+				if self.Name == name then
+					args[1] = owo_convert(args[1])
+			end
+			end
+		end
+		return namecall(self, unpack(args))
+	end)
+end)
+
+addcmd('flyhat',{},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/4B4fktPS", true))()
+end)
+
+addcmd('developer',{},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/iu7atgBR", true))()
+end)
+
+addcmd('rtm',{},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/6pzLjfSV", true))()
+end)
+
+addcmd('filterware',{},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/YKUDVYxc", true))()
+end)
+
+addcmd('nameprotect',{},function(args, speaker)
+	local Config =
+		{
+			ProtectedName = "NameProtect", --What the protected name should be called.
+			OtherPlayers = true, --If other players should also have protected names.
+			OtherPlayersTemplate = "NameProtect", --Template for other players protected name (ex: "NamedProtect" will turn into "NameProtect1" for first player and so on)
+			RenameTextBoxes = false, --If TextBoxes should be renamed. (could cause issues with admin guis/etc)
+			UseFilterPadding = false, --If filtered name should be the same size as a regular name.
+			FilterPad = " ", --Character used to filter pad.
+			UseMetatableHook = true, --Use metatable hook to increase chance of filtering. (is not supported on wrappers like bleu)
+			UseAggressiveFiltering = false --Use aggressive property renaming filter. (renames a lot more but at the cost of lag)
+		}
+
+	local ProtectedNames = {}
+	local Counter = 1
+	if Config.OtherPlayers then
+		for I, V in pairs(game:GetService("Players"):GetPlayers()) do
+			local Filter = Config.OtherPlayersTemplate .. tostring(Counter)
+			if Config.UseFilterPadding then
+				if string.len(Filter) > string.len(V.Name) then
+					Filter = string.sub(Filter, 1, string.len(V.Name))
+				elseif string.len(Filter) < string.len(V.Name) then
+					local Add = string.len(V.Name) - string.len(Filter)
+					for I=1,Add do
+						Filter = Filter .. Config.FilterPad
+					end
+				end
+			end
+			ProtectedNames[V.Name] = Filter
+			Counter = Counter + 1
+		end
+
+		game:GetService("Players").PlayerAdded:connect(function(Player)
+			local Filter = Config.OtherPlayersTemplate .. tostring(Counter)
+			if Config.UseFilterPadding then
+				if string.len(Filter) > string.len(V.Name) then
+					Filter = string.sub(Filter, 1, string.len(V.Name))
+				elseif string.len(Filter) < string.len(V.Name) then
+					local Add = string.len(V.Name) - string.len(Filter)
+					for I=1,Add do
+						Filter = Filter .. Config.FilterPad
+					end
+				end
+			end
+			ProtectedNames[Player.Name] = Filter
+			Counter = Counter + 1
+		end)
+	end
+
+	local LPName = game:GetService("Players").LocalPlayer.Name
+	local IsA = game.IsA
+
+	if Config.UseFilterPadding then
+		if string.len(Config.ProtectedName) > string.len(LPName) then
+			Config.ProtectedName = string.sub(Config.ProtectedName, 1, string.len(LPName))
+		elseif string.len(Config.ProtectedName) < string.len(LPName) then
+			local Add = string.len(LPName) - string.len(Config.ProtectedName)
+			for I=1,Add do
+				Config.ProtectedName = Config.ProtectedName .. Config.FilterPad
+			end
+		end
+	end
+
+	local function FilterString(S)
+		local RS = S
+		if Config.OtherPlayers then
+			for I, V in pairs(ProtectedNames) do
+				RS = string.gsub(RS, I, V)
+			end
+		end
+		RS = string.gsub(RS, LPName, Config.ProtectedName)
+		return RS
+	end
+
+	for I, V in pairs(game:GetDescendants()) do
+		if Config.RenameTextBoxes then
+			if IsA(V, "TextLabel") or IsA(V, "TextButton") or IsA(V, "TextBox") then
+				V.Text = FilterString(V.Text)
+
+				if Config.UseAggressiveFiltering then
+					V:GetPropertyChangedSignal("Text"):connect(function()
+						V.Text = FilterString(V.Text)
+					end)
+				end
+			end
+		else
+			if IsA(V, "TextLabel") or IsA(V, "TextButton") then
+				V.Text = FilterString(V.Text)
+
+				if Config.UseAggressiveFiltering then
+					V:GetPropertyChangedSignal("Text"):connect(function()
+						V.Text = FilterString(V.Text)
+					end)
+				end
+			end
+		end
+	end
+
+	if Config.UseAggressiveFiltering then
+		game.DescendantAdded:connect(function(V)
+			if Config.RenameTextBoxes then
+				if IsA(V, "TextLabel") or IsA(V, "TextButton") or IsA(V, "TextBox") then
+					V:GetPropertyChangedSignal("Text"):connect(function()
+						V.Text = FilterString(V.Text)
+					end)
+				end
+			else
+				if IsA(V, "TextLabel") or IsA(V, "TextButton") then
+					V:GetPropertyChangedSignal("Text"):connect(function()
+						V.Text = FilterString(V.Text)
+					end)
+				end
+			end
+		end)
+	end
+
+	if Config.UseMetatableHook then
+		if not getrawmetatable then
+			error("GetRawMetaTable not found")
+		end
+
+		local NewCC = function(F)
+			if newcclosure then return newcclosure(F) end
+			return F
+		end
+
+		local SetRO = function(MT, V)
+			if setreadonly then return setreadonly(MT, V) end
+			if not V and make_writeable then return make_writeable(MT) end
+			if V and make_readonly then return make_readonly(MT) end
+			error("No setreadonly found")
+		end
+
+		local MT = getrawmetatable(game)
+		local OldNewIndex = MT.__newindex
+		SetRO(MT, false)
+
+		MT.__newindex = NewCC(function(T, K, V)
+			if Config.RenameTextBoxes then
+				if (IsA(T, "TextLabel") or IsA(T, "TextButton") or IsA(T, "TextBox")) and K == "Text" and type(V) == "string" then
+					return OldNewIndex(T, K, FilterString(V))
+				end
+			else
+				if (IsA(T, "TextLabel") or IsA(T, "TextButton")) and K == "Text" and type(V) == "string" then
+					return OldNewIndex(T, K, FilterString(V))
+				end
+			end
+
+			return OldNewIndex(T, K, V)
+		end)
+
+		SetRO(MT, true)
+	end
+end)
+
+addcmd('iychat',{},function(args, speaker)
+	local Role = args[1]
+	local RBG = args[2]
+	getgenv().cross_settings = {
+		myRoles = {Role}, -- Set your roles here.
+		myColor = Color3.fromRGB(255, 255, 255), -- Color of your chats. If your first role is "RGB", your chats will be rainbow for others.
+		RGB_ENABLED = RBG, -- Set to false if you don't want rainbow chats.
+		-- Everyone in the chat must have the same values below.
+		WS_URL = "ws://BlaringZigzagMineral.momowhaley.repl.co",
+		ENCRYPTION_KEY = "cZsjReVwG48ADvjf7rUkGb8LzJPsC2P#"
+	}
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xxaim/cross-game-chat/master/client.lua"))() -- Load client.
+end)
+
 updateColors(currentShade1,shade1)
 updateColors(currentShade2,shade2)
 updateColors(currentShade3,shade3)
@@ -11221,9 +11799,10 @@ end
 
 IYMouse.Move:connect(checkTT)
 
-if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
+if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/CadenWhaley/IYRemade/main/ver.txt'))() end) then
 	if ver ~= Version then
-		notify('Outdated','Get the new version at infyield.yolasite.com')
+		notify('Outdated','we have copied the URL to your clipboard!')
+		toClipboard('https://github.com/CadenWhaley/IYRemade')
 	end
 	if Announcement and Announcement ~= '' then
 		local AnnGUI = Instance.new("Frame")
