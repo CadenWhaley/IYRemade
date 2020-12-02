@@ -11491,11 +11491,13 @@ addcmd('furry',{},function(args, speaker)
 				if self.Name == name then
 					args[1] = owo_convert(args[1])
 			end
-			end
-		end
-		return namecall(self, unpack(args))
+				end
+				end
+				return namecall(self, unpack(args))
 	end)
 end)
+
+
 
 addcmd('flyhat',{},function(args, speaker)
 	loadstring(game:HttpGet("https://pastebin.com/raw/4B4fktPS", true))()
@@ -11669,17 +11671,7 @@ addcmd('nameprotect',{},function(args, speaker)
 end)
 
 addcmd('iychat',{},function(args, speaker)
-	local Role = args[1]
-	local RBG = args[2]
-	getgenv().cross_settings = {
-		myRoles = {Role}, -- Set your roles here.
-		myColor = Color3.fromRGB(255, 255, 255), -- Color of your chats. If your first role is "RGB", your chats will be rainbow for others.
-		RGB_ENABLED = RBG, -- Set to false if you don't want rainbow chats.
-		-- Everyone in the chat must have the same values below.
-		WS_URL = "ws://BlaringZigzagMineral.momowhaley.repl.co",
-		ENCRYPTION_KEY = "cZsjReVwG48ADvjf7rUkGb8LzJPsC2P#"
-	}
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/xxaim/cross-game-chat/master/client.lua"))() -- Load client.
+	loadstring(game:HttpGet("https://pastebin.com/raw/dvxAGDLZ", true))()
 end)
 
 updateColors(currentShade1,shade1)
