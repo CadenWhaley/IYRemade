@@ -7,6 +7,7 @@ Zinnia#9303
 
 Wally - Don't have his Discord.
 
+ALL SCRIPT OWNERS GET CREDIT!!
 
 
 # Info
