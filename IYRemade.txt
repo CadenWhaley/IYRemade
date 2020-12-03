@@ -38,7 +38,7 @@ Title_2 = Instance.new("TextLabel")
 Text_2 = Instance.new("TextLabel")
 CloseButton = Instance.new("TextButton")
 CloseImage = Instance.new("ImageLabel")
-Tooltip = Instance.new("Frame")
+Tooltip = Instance.new("Frame")F
 Title_3 = Instance.new("TextLabel")
 Description = Instance.new("TextLabel")
 IntroBackground = Instance.new("Frame")
@@ -11518,7 +11518,7 @@ end)
 addcmd('nameprotect',{},function(args, speaker)
 	local Config =
 		{
-			ProtectedName = args[1], --What the protected name should be called.
+			ProtectedName = "NameProtected", --What the protected name should be called.
 			OtherPlayers = true, --If other players should also have protected names.
 			OtherPlayersTemplate = "NameProtected", --Template for other players protected name (ex: "NamedProtect" will turn into "NameProtect1" for first player and so on)
 			RenameTextBoxes = false, --If TextBoxes should be renamed. (could cause issues with admin guis/etc)
