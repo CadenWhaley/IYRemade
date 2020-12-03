@@ -4690,7 +4690,7 @@ CMDs[#CMDs + 1] = {NAME = 'flyhat', DESC = 'makes your hats fly around you'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'developer', DESC = '???'}
 CMDs[#CMDs + 1] = {NAME = 'rtm', DESC = 'Removes any tool Mesh (MUST BE IN YOUR ARM)'}
-CMDs[#CMDs + 1] = {NAME = 'filterware', DESC = 'Just script hub including many FE scripts.'}
+CMDs[#CMDs + 1] = {NAME = 'rickroll', DESC = 'You already know.'}
 CMDs[#CMDs + 1] = {NAME = 'nameprotect', DESC = 'Hides your name in any game!'}
 CMDs[#CMDs + 1] = {NAME = 'iychat', DESC = 'Example. ;iychat Tagname True or false if you dont want RBG!'}
 wait()
@@ -11511,16 +11511,16 @@ addcmd('rtm',{},function(args, speaker)
 	loadstring(game:HttpGet("https://pastebin.com/raw/6pzLjfSV", true))()
 end)
 
-addcmd('filterware',{},function(args, speaker)
+addcmd('rockroll',{},function(args, speaker)
 	loadstring(game:HttpGet("https://pastebin.com/raw/YKUDVYxc", true))()
 end)
 
 addcmd('nameprotect',{},function(args, speaker)
 	local Config =
 		{
-			ProtectedName = "NameProtect", --What the protected name should be called.
+			ProtectedName = args[1], --What the protected name should be called.
 			OtherPlayers = true, --If other players should also have protected names.
-			OtherPlayersTemplate = "NameProtect", --Template for other players protected name (ex: "NamedProtect" will turn into "NameProtect1" for first player and so on)
+			OtherPlayersTemplate = "NameProtected", --Template for other players protected name (ex: "NamedProtect" will turn into "NameProtect1" for first player and so on)
 			RenameTextBoxes = false, --If TextBoxes should be renamed. (could cause issues with admin guis/etc)
 			UseFilterPadding = false, --If filtered name should be the same size as a regular name.
 			FilterPad = " ", --Character used to filter pad.
